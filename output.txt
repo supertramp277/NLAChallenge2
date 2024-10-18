@@ -1,0 +1,15 @@
+Image einstein.jpg loaded: 341x256 pixels with 1 channels
+The original image einstein.jpg in matrix form has dimension: 341 rows x 256 cols = 87296
+
+Euclidean Norm Of ATA Is: 16154
+Check if ATA is symmetric by norm value of its difference with transpose: 0
+The two largest eigenvalues of ATA are:
+16083.3
+1394.69
+Matrix ATA has been saved in Matrix Market format as ATA.mtx
+The Euclidean Norm Of Checkerboard Matrix Is: 141.421
+
+New image saved to image_checkerboard.png
+
+New image saved to image_noised_checkerboard.png
+
