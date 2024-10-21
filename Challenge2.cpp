@@ -151,18 +151,17 @@ int main(int argc, char *argv[])
     /********Question 8,9 : Create a black and white checkerboard image, report norm, then introduce noise********/
     // Question8: Create a black and white checkerboard image and calculate norm
     std::cout << "\n------------------Part3: Checkboard Related Problems------------------" << std::endl;
-    int blockSize = 25;              // Define the block size, the professor's demand is just 1?
-    int numBlocks = 200 / blockSize; // Number of blocks, in this case it's just 200 same as pixels
+    int blockSize = 25;              // Define the block size, the professor's demand is 25*25?
+    int numBlocks = 200 / blockSize; // Number of blocks, in this case it's 8*8 blocks
     MatrixXd checkerboard(200, 200);
-    for (int i = 0; i < numBlocks; i++)
+    for (int i = 0; i < numBlocks; i++) // i, j are block index
     {
         for (int j = 0; j < numBlocks; j++)
         {
-            // Determine the color of the block
+            // Determine the color of the whole block by block's position
             double color = ((i + j) % 2 == 0) ? 0.0 : 1.0; // Black or White
-
-            // Fill the block with the determined color,
-            // bi and bj is in block index and need to also consider outter position
+            // Fill the block with the determined color, bi and bj are relative index inner one block
+            // For absolute position indexs we need (i * blockSize + bi, j * blockSize + bj)
             for (int bi = 0; bi < blockSize; bi++)
             {
                 for (int bj = 0; bj < blockSize; bj++)
