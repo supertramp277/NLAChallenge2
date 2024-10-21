@@ -139,12 +139,22 @@ int main(int argc, char *argv[])
     /**************************************************** end ****************************************************/
 
     /***************************Question 5-7 : Using the SVD module of the Eigen library***************************/
-    // To be done
+    // Compute the thin SVD of A, diagonal matrix sigma's norm and check
+    Eigen::BDCSVD<Eigen::MatrixXd> svd(matrix_A, Eigen::ComputeThinU | Eigen::ComputeThinV);
+    Eigen::MatrixXd U = svd.matrixU();
+    Eigen::MatrixXd Sigma = svd.singularValues().asDiagonal();
+    Eigen::MatrixXd V = svd.matrixV();
+    Eigen::MatrixXd matrix_SVD_A = U * Sigma * V.transpose();
+    std::cout << "Euclidean norm of the diagonal matrix sigma:" << Sigma.norm() << std::endl;
+    std::cout << "Check If SVD If Right But Diff Norm:" << (matrix_A - matrix_SVD_A).norm() << std::endl;
+    saveMarket(U, "./MatrixU.mtx");
+    saveMarket(Sigma, "./MatrixSigma.mtx");
+    saveMarket(V, "MatrixV.mtx");
     /**************************************************** end ****************************************************/
 
     /********Question 8,9 : Create a black and white checkerboard image, report norm, then introduce noise********/
     // Question8: Create a black and white checkerboard image and calculate norm
-    int blockSize = 1;               // Define the block size, the professor's demand is just 1?
+    int blockSize = 25;              // Define the block size, the professor's demand is just 1?
     int numBlocks = 200 / blockSize; // Number of blocks, in this case it's just 200 same as pixels
     Matrix<double, Dynamic, Dynamic, RowMajor> checkerboard(200, 200);
 

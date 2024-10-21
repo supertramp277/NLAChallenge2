@@ -7,6 +7,8 @@ The two largest eigenvalues of ATA are:
 16083.3
 1394.69
 Matrix ATA has been saved in Matrix Market format as ATA.mtx
+Euclidean norm of the diagonal matrix sigma:139.516
+Check If SVD If Right But Diff Norm:2.45385e-13
 The Euclidean Norm Of Checkerboard Matrix Is: 141.421
 
 New image saved to image_checkerboard.png
