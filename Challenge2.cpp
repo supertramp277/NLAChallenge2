@@ -8,12 +8,12 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 /*****************************************************************************************************************/
-// More details and explanation are at this link:
+// More details and explanation are at this link: https://github.com/supertramp277/NLAChallenge2
 /*****************************************************************************************************************/
 using namespace Eigen;
 typedef Eigen::Triplet<double> T;
 
-// Function 1: Convert a normalized matrix to Matrix<unsigned char> with range [0,255] and output as png
+// Function 1: Convert a normalized matrix to Matrix<unsigned char> with range [0,255] and output it as png
 void outputImage(const MatrixXd &output_image_matrix, int height, int width, const std::string &path)
 {
     // Convert the modified image to grayscale and export it using stbi_write_png, just need this stb related to be rowmajor
@@ -27,33 +27,6 @@ void outputImage(const MatrixXd &output_image_matrix, int height, int width, con
         std::cerr << "Error: Could not save modified image" << std::endl;
     }
     std::cout << "New image saved to " << path << std::endl;
-}
-
-// Function 2: Export the vector to mtx file. And the index from 1 instead of 0 for meeting the lis input file demand.
-void exportVector(VectorXd data, const std::string &path)
-{
-    FILE *out = fopen(path.c_str(), "w");
-    fprintf(out, "%%%%MatrixMarket vector coordinate real general\n");
-    fprintf(out, "%d\n", data.size());
-    for (int i = 0; i < data.size(); i++)
-    {
-        fprintf(out, "%d %f\n", i + 1, data(i)); // Attention! here index is from 1, same as lis demand.
-    }
-    std::cout << "New vector file saved to " << path << std::endl;
-    fclose(out);
-}
-
-// Function 3: Export a sparse matrix by saveMarket()
-void exportSparsematrix(SparseMatrix<double, RowMajor> data, const std::string &path)
-{
-    if (saveMarket(data, path))
-    {
-        std::cout << "New sparse matrix saved to " << path << std::endl;
-    }
-    else
-    {
-        std::cerr << "Error: Could not save sparse matrix to " << path << std::endl;
-    }
 }
 
 /*--------------------------------------------------------------------------------------------------------------*/
@@ -107,7 +80,6 @@ int main(int argc, char *argv[])
     MatrixXd matrix_AT = matrix_A.transpose();
     MatrixXd matrix_AT_A = matrix_AT * matrix_A;
     std::cout << "Euclidean Norm Of ATA Is: " << matrix_AT_A.norm() << std::endl;
-
     /*Question2: Solve the eigenvalue of ATA by eigen and report the two largest values*/
     // ATA is absolutely symmetric by defintion, check here to ensure no round off problems in practice
     double norm_diff = (matrix_AT_A - matrix_AT_A.transpose()).norm();
@@ -142,7 +114,6 @@ int main(int argc, char *argv[])
     // Question5: Compute the thin SVD of A, diagonal matrix sigma's norm and check
     std::cout << "------------------Part2: Perform SVD Of A------------------" << std::endl;
     BDCSVD<MatrixXd> svd(matrix_A, ComputeThinU | ComputeThinV); // thin-solver
-
     MatrixXd U = svd.matrixU();
     MatrixXd Sigma = svd.singularValues().asDiagonal();
     MatrixXd V = svd.matrixV();
@@ -153,7 +124,6 @@ int main(int argc, char *argv[])
     saveMarket(Sigma, "./MatrixSigma.mtx");
     saveMarket(V, "MatrixV.mtx");
     saveMarketVector(svd.singularValues(), "./SingularValuesOfA.txt");
-
     /**
      * Question6: Compute the matrices C and D, assuming k = 40 and k = 80.
      * And Report the number of nonzero entries in the matrices C and D.
@@ -168,7 +138,6 @@ int main(int argc, char *argv[])
     MatrixXd D80 = V.leftCols(80) * svd.singularValues().head(80).asDiagonal();
     std::cout << "Nonzero Entries For Matrix C80: " << C80.nonZeros() << std::endl;
     std::cout << "Nonzero Entries For Matrix D80: " << D80.nonZeros() << std::endl;
-
     // Question7: Compute the compressed images as the matrix product CD^T (again for k = 40 and k = 80)
     MatrixXd CompressedA40 = C40 * D40.transpose();
     std::cout << "A40's Rows:" << CompressedA40.rows() << "\t" << "Cols:" << CompressedA40.cols() << std::endl;
@@ -185,7 +154,6 @@ int main(int argc, char *argv[])
     int blockSize = 25;              // Define the block size, the professor's demand is just 1?
     int numBlocks = 200 / blockSize; // Number of blocks, in this case it's just 200 same as pixels
     MatrixXd checkerboard(200, 200);
-
     for (int i = 0; i < numBlocks; i++)
     {
         for (int j = 0; j < numBlocks; j++)
@@ -207,12 +175,10 @@ int main(int argc, char *argv[])
     std::cout << "The Euclidean Norm Of Checkerboard Matrix Is: " << checkerboard.norm()
               << std::endl;
     outputImage(checkerboard, 200, 200, "image_checkerboard.png");
-
     // Question9: Introduce a noise into the checkerboard image
     MatrixXd noised_checkboard(200, 200);
     std::default_random_engine generator;
     std::uniform_int_distribution<int> distribution(-50, 50);
-
     for (int i = 0; i < 200; i++)
     {
         for (int j = 0; j < 200; j++)
