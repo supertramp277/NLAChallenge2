@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
     MatrixXd V = svd.matrixV();
     MatrixXd matrix_SVD_A = U * Sigma * V.transpose();
     std::cout << "Euclidean norm of the diagonal matrix sigma:" << Sigma.norm() << std::endl;
-    std::cout << "Check If SVD If Right But Diff Norm:" << (matrix_A - matrix_SVD_A).norm() << std::endl;
+    std::cout << "Check If SVD Is Right Done By Diff Norm:" << (matrix_A - matrix_SVD_A).norm() << std::endl;
     saveMarket(U, "./MatrixU.mtx");
     saveMarket(Sigma, "./MatrixSigma.mtx");
     saveMarket(V, "MatrixV.mtx");

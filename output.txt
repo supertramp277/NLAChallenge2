@@ -11,7 +11,7 @@ Matrix ATA has been saved in Matrix Market format as ATA.mtx
 
 ------------------Part2: Perform SVD Of A------------------
 Euclidean norm of the diagonal matrix sigma:139.516
-Check If SVD If Right But Diff Norm:2.45385e-13
+Check If SVD Is Right Done By Diff Norm:2.45385e-13
 Nonzero Entries For Matrix C40: 13640
 Nonzero Entries For Matrix D40: 10240
 Nonzero Entries For Matrix C80: 27280
