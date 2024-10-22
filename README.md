@@ -10,3 +10,10 @@
   - $\text{Inverse: number of iterations} = 3$
   - $\text{Inverse: eigenvalue} = 1.608332e+04$
 - Some other files like  `AllEigenvaluesOfATA.txt`, `MatrixSigma.mtx`, `SingularValuesOfA.txt` ... are used for own checking.
+
+## Some Comments
+
+About the last question, we can see that by this compressed way through svd, we have decreased the noise difference from 16 to about 12 successfully.
+
+- however, it seems when $k=10$ the compressed image compared to the original one is less denoised that the case for $k=5$
+![alt text](screenshot.png)

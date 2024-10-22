@@ -7,6 +7,9 @@ Check if ATA is symmetric by norm value of its difference with transpose: 0
 The two largest eigenvalues of ATA are:
 16083.3
 1394.69
+Then, the two largest singular values of A are:
+126.82
+37.3455
 Matrix ATA has been saved in Matrix Market format as ATA.mtx
 
 ------------------Part2: Perform SVD Of A------------------
@@ -17,14 +20,17 @@ Nonzero Entries For Matrix D40: 10240
 Nonzero Entries For Matrix C80: 27280
 Nonzero Entries For Matrix D80: 20480
 A40's Rows:341	Cols:256
+A40's difference with original A: 17.1408
 New image saved to ./image_compressed_k40.png
 A80's Rows:341	Cols:256
+A80's difference with original A: 10.3856
 New image saved to ./image_compressed_k80.png
 
 ------------------Part3: Checkboard Related Problems------------------
 The Euclidean Norm Of Checkerboard Matrix Is: 141.421
 New image saved to image_checkerboard.png
 New image saved to image_noised_checkerboard.png
+Noised Checkboard difference with original Checkboard:16.0318
 The largest two singular values of noised checkboard are:
 100.029
 90.2528
@@ -40,5 +46,9 @@ Cols: 10
 Size Of Matrix D When K=10:
 Rows: 200
 Cols: 10
+Compressed Noised Checkboard difference with noised Checkboard when k=5: 12.2355
+Compressed Noised Checkboard difference with original Checkboard when k=5: 10.3593
 New image saved to ./image_compressed_CB_k5.png
+Compressed Noised Checkboard difference with noised Checkboard when k=10: 11.6807
+Compressed Noised Checkboard difference with original Checkboard when k=10: 10.981
 New image saved to ./image_compressed_CB_k10.png

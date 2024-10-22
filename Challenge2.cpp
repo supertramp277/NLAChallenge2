@@ -98,6 +98,9 @@ int main(int argc, char *argv[])
     std::cout << "The two largest eigenvalues of ATA are:\n"
               << eigenvalues[eigenvalues.size() - 1] << "\n"
               << eigenvalues[eigenvalues.size() - 2] << std::endl;
+    std::cout << "Then, the two largest singular values of A are:\n"
+              << sqrt(eigenvalues[eigenvalues.size() - 1]) << "\n"
+              << sqrt(eigenvalues[eigenvalues.size() - 2]) << std::endl;
     saveMarketVector(eigenvalues, "./AllEigenvaluesOfATA.txt");
 
     /*Question3: Export matrix ATA in the matrix market format, move to lis and compute the largest eigenvalue*/
@@ -141,10 +144,12 @@ int main(int argc, char *argv[])
     // Question7: Compute the compressed images as the matrix product CD^T (again for k = 40 and k = 80)
     MatrixXd CompressedA40 = C40 * D40.transpose();
     std::cout << "A40's Rows:" << CompressedA40.rows() << "\t" << "Cols:" << CompressedA40.cols() << std::endl;
+    std::cout << "A40's difference with original A: " << (CompressedA40 - matrix_A).norm() << std::endl;
     outputImage(CompressedA40, CompressedA40.rows(), CompressedA40.cols(), "./image_compressed_k40.png");
     // again for k=80
     MatrixXd CompressedA80 = C80 * D80.transpose();
     std::cout << "A80's Rows:" << CompressedA80.rows() << "\t" << "Cols:" << CompressedA80.cols() << std::endl;
+    std::cout << "A80's difference with original A: " << (CompressedA80 - matrix_A).norm() << std::endl;
     outputImage(CompressedA80, CompressedA80.rows(), CompressedA80.cols(), "./image_compressed_k80.png");
     /**************************************************** end ****************************************************/
 
@@ -192,6 +197,7 @@ int main(int argc, char *argv[])
 
     /******************************Question 10-12 : Using the SVD to solve checkboard******************************/
     // Question10: Perform svd of the matrix of noisy image. Report the two largest computed singular values.
+    std::cout << "Noised Checkboard difference with original Checkboard:" << (noised_checkboard - checkerboard).norm() << std::endl;
     BDCSVD<MatrixXd> checkboard_svd(noised_checkboard, ComputeThinU | ComputeThinV);
     VectorXd singularValuesCheckboard = checkboard_svd.singularValues();
     std::cout << "The largest two singular values of noised checkboard are:\n"
@@ -218,9 +224,13 @@ int main(int argc, char *argv[])
               << "Cols: " << D10.cols() << std::endl;
     // Question12: Compute the compressed images as the matrix product CD^T (again for k = 5 and k = 10)
     MatrixXd CompressedCB5 = C5 * D5.transpose();
+    std::cout << "Compressed Noised Checkboard difference with noised Checkboard when k=5: " << (CompressedCB5 - noised_checkboard).norm() << std::endl;
+    std::cout << "Compressed Noised Checkboard difference with original Checkboard when k=5: " << (CompressedCB5 - checkerboard).norm() << std::endl;
     outputImage(CompressedCB5, CompressedCB5.rows(), CompressedCB5.cols(), "./image_compressed_CB_k5.png");
     // again for k=10
     MatrixXd CompressedCB10 = C10 * D10.transpose();
+    std::cout << "Compressed Noised Checkboard difference with noised Checkboard when k=10: " << (CompressedCB10 - noised_checkboard).norm() << std::endl;
+    std::cout << "Compressed Noised Checkboard difference with original Checkboard when k=10: " << (CompressedCB10 - checkerboard).norm() << std::endl;
     outputImage(CompressedCB10, CompressedCB10.rows(), CompressedCB10.cols(), "./image_compressed_CB_k10.png");
     /**************************************************** end ****************************************************/
 
